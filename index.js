@@ -20,8 +20,13 @@ const db =  [
     ];
 
 app.get('/api/persons', function (req, res) {
-//   res.send('Hello World!');
   res.json(db);
+});
+
+app.get('/info', (req, res) => {
+    const message = `Phonebook has info for ${db.length} people </br>`;
+    const message2 = new Date();
+    res.send(message + message2);
 });
 
 app.listen(3001, function () {

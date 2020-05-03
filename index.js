@@ -56,12 +56,29 @@ app.delete('/api/persons/:id', (req, res) => {
 });
 
 app.post('/api/persons', (req, res) => {
-    const body = req.body;
-    
-    if (body){
-        const id = Math.round(Math.random()*1000);
-        db.push({...body, id});
+    const person = req.body;
+
+    if (!person){ 
+        res.status(400).json({error:"Request body was empty"});
+        return;
     }
+    if (!person.name || person.name.length === 0){
+        res.status(400).json({error:"Name is required"});
+        return;
+    }
+    if (!person.phone || person.phone.length === 0){
+        res.status(400).json({error:"Phone is required"});
+        return;
+    }
+    if ( db.find(item => item.name == person.name)){
+        res.status(409).json({error:`The name ${person.name} already exists in the phonebook`});
+        return;
+    }
+
+    const id = Math.round(Math.random()*1000);
+    db.push({...person, id});
+    res.send();
+
     
 });
 

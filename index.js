@@ -1,6 +1,8 @@
 const express = require('express');
 const app = express();
 
+app.use(express.json());
+
 var db =  [
       {
         "name": "Arto Hellas",
@@ -52,6 +54,17 @@ app.delete('/api/persons/:id', (req, res) => {
         res.status(204).send();
     }
 });
+
+app.post('/api/persons', (req, res) => {
+    const body = req.body;
+    
+    if (body){
+        const id = Math.round(Math.random()*1000);
+        db.push({...body, id});
+    }
+    
+});
+
 
 app.listen(3001, function () {
   console.log('Example app listening on port 3001!');

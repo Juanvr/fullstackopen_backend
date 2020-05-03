@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 
-const db =  [
+var db =  [
       {
         "name": "Arto Hellas",
         "phone": "040-123456",
@@ -38,6 +38,19 @@ app.get('/info', (req, res) => {
     const message = `Phonebook has info for ${db.length} people </br>`;
     const message2 = new Date();
     res.send(message + message2);
+});
+
+
+app.delete('/api/persons/:id', (req, res) => {
+    const id = req.params.id;
+    const person = db.find(item => item.id == id);
+
+    if (person){
+        db = db.filter(item => item.id != id);
+        res.status(200).send();
+    } else {
+        res.status(204).send();
+    }
 });
 
 app.listen(3001, function () {

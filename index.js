@@ -19,8 +19,19 @@ const db =  [
       }
     ];
 
-app.get('/api/persons', function (req, res) {
+app.get('/api/persons', (req, res) => {
   res.json(db);
+});
+
+app.get('/api/persons/:id', (req,res) => {
+    const id = req.params.id;
+    const person = db.find(item => item.id == id);
+
+    if (person){
+        res.json(person);
+    }else {
+        res.status(404).send({ error: `Person with id ${id} not found`});
+    }
 });
 
 app.get('/info', (req, res) => {

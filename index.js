@@ -1,7 +1,10 @@
 const express = require('express');
 const app = express();
+const morgan = require('morgan');
 
 app.use(express.json());
+
+app.use(morgan('tiny'));
 
 var db =  [
       {
@@ -86,3 +89,9 @@ app.post('/api/persons', (req, res) => {
 app.listen(3001, function () {
   console.log('Example app listening on port 3001!');
 });
+
+const unknownEndpoint = (request, response) => {
+    response.status(404).send({ error: 'unknown endpoint' })
+  }
+  
+  app.use(unknownEndpoint)

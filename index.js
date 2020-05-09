@@ -1,8 +1,13 @@
 const express = require('express');
 const app = express();
 const morgan = require('morgan');
+const cors = require('cors')
+
+const PORT = process.env.PORT || 3001;
 
 app.use(express.json());
+
+app.use(cors())
 
 // Custom morgan format
 morgan.token('data', function (req, res) { return JSON.stringify(req.body)});
@@ -29,11 +34,11 @@ var db =  [
       }
     ];
 
-app.get('/api/persons', (req, res) => {
+app.get('/api/contacts', (req, res) => {
   res.json(db);
 });
 
-app.get('/api/persons/:id', (req,res) => {
+app.get('/api/contacts/:id', (req,res) => {
     const id = req.params.id;
     const person = db.find(item => item.id == id);
 
@@ -51,7 +56,7 @@ app.get('/info', (req, res) => {
 });
 
 
-app.delete('/api/persons/:id', (req, res) => {
+app.delete('/api/contacts/:id', (req, res) => {
     const id = req.params.id;
     const person = db.find(item => item.id == id);
 
@@ -63,7 +68,7 @@ app.delete('/api/persons/:id', (req, res) => {
     }
 });
 
-app.post('/api/persons', (req, res) => {
+app.post('/api/contacts', (req, res) => {
     const person = req.body;
 
     if (!person){ 
@@ -91,8 +96,8 @@ app.post('/api/persons', (req, res) => {
 });
 
 
-app.listen(3001, function () {
-  console.log('Example app listening on port 3001!');
+app.listen(PORT, function () {
+  console.log(`Example app listening on port ${PORT}!`);
 });
 
 const unknownEndpoint = (request, response) => {

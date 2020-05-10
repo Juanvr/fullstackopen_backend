@@ -7,10 +7,9 @@
     "start": "node index.js",
     "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build:ui":"del /f /s /q build 1>nul & rd /s/q \"build\" 2> nul & cd \"../fullstackopen/part2/phonebook_app\" & npm run build --prod && move \"build\" \"../../../fullstackopen_backend\" ",
-
+    "build:ui": "del /f /s /q build 1>nul & rd /s/q \"build\" 2> nul & cd \"../fullstackopen/part2/phonebook_app\" & npm run build --prod && move \"build\" \"../../../fullstackopen_backend\" ",
     "deploy": "git push heroku master",
-    "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && npm run deploy",    
+    "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && npm run deploy",
     "logs:prod": "heroku logs --tail"
   },
   "repository": {
@@ -26,6 +25,7 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "mongoose": "^5.9.13",
     "morgan": "^1.10.0"
   },
   "devDependencies": {

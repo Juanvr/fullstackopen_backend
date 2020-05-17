@@ -21,12 +21,14 @@ const contactSchema = new mongoose.Schema({
 const Contact = mongoose.model('Contact', contactSchema)
 
 if ( process.argv.length<5 ) {
-    Contact.find({}).then(result => {
+    Contact
+      .find({})
+      .then(result => {
         result.forEach(contact => {
             console.log(contact)
         })
         mongoose.connection.close()
-        });
+      });
 } 
 else {
     const contact = new Contact({
